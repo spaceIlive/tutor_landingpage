@@ -65,6 +65,34 @@ async function fetchIp() {
   }
 }
 
+/* ---------- Visit logging (fire-and-forget) ---------- */
+async function logVisit() {
+  try {
+    const ip = await fetchIp();
+    const t = getTracking();
+    const payload = {
+      type:         "visit",
+      visited_at:   new Date().toISOString(),
+      ip_address:   ip,
+      referrer:     t.referrer,
+      utm_source:   t.utm_source,
+      utm_medium:   t.utm_medium,
+      utm_campaign: t.utm_campaign,
+      utm_term:     t.utm_term,
+      utm_content:  t.utm_content,
+      landing_url:  t.landing_url,
+    };
+    await fetch(APPS_SCRIPT_URL, {
+      method: "POST",
+      headers: { "Content-Type": "text/plain;charset=utf-8" },
+      body: JSON.stringify(payload),
+      keepalive: true,
+    });
+  } catch (e) {
+    // Silent: visit logging must never affect UX
+  }
+}
+
 /* ---------- Reveal on scroll ---------- */
 function setupReveal() {
   if (!("IntersectionObserver" in window)) {
@@ -167,6 +195,7 @@ function setupForm() {
 /* ---------- Boot ---------- */
 document.addEventListener("DOMContentLoaded", () => {
   captureFirstTouch();
+  logVisit();
   setupReveal();
   setupForm();
 });
