@@ -1,6 +1,6 @@
-# Premium IB — 1기 강사 모집 랜딩페이지
+# Premium IB — 1기 튜터 모집 랜딩페이지
 
-IB Final 43점 이상 프리미엄 강사 1기 모집을 위한 단일 페이지 랜딩사이트.
+IB Final 43점 이상 프리미엄 튜터 1기 모집을 위한 단일 페이지 랜딩사이트.
 프론트는 정적 HTML/CSS/JS, 백엔드는 Google Apps Script, DB는 Google Spreadsheet,
 호스팅은 Netlify.
 
